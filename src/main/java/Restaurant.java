@@ -10,6 +10,8 @@ public class Restaurant {
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
 
+    private List<String>selectedMenuItemList = new ArrayList<String>();
+
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
         this.location = location;
@@ -65,4 +67,34 @@ public class Restaurant {
         return name;
     }
 
+    /** When an item is selected , the name of the item and True value is passed to this function.
+     *  when an item is deselected the name and false value is passed to this function
+     * */
+    public void selectOrDeselectMenuItem(String itemName, boolean selectStatus){
+        if(selectStatus == true) {
+            if(!selectedMenuItemList.contains(itemName))
+                selectedMenuItemList.add(itemName);
+        } else {
+            selectedMenuItemList.remove(itemName);
+        }
+    }
+
+    /** Loop through the selected items and get their price and add it to total price*/
+    public int calculateTotalPriceOfSelectedItems(){
+        int totalCost = 0;
+        for (String name: selectedMenuItemList) {
+            for(Item item: menu) {
+                if(item.getName().equals(name)){
+                    // if the selected item matches the item in Menu list
+                    // add its price to the total Variable created above
+                    totalCost += item.getPrice();
+                }
+            }
+        }
+        return totalCost;
+    }
+
+    public List<String> getSelectedMenuItemList() {
+        return selectedMenuItemList;
+    }
 }
