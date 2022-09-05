@@ -68,4 +68,32 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>Calculate Menu Total (Part 3)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void selecting_menu_item_should_add_the_item_name_to_selected_list(){
+        restaurant.selectOrDeselectMenuItem("Sweet corn soup", true);
+        assertEquals(true, restaurant.getSelectedMenuItemList().contains("Sweet corn soup"));
+    }
+
+    @Test
+    public void de_selecting_menu_item_should_remove_the_item_name_from_selected_list(){
+        //first add the item to selected List
+        restaurant.selectOrDeselectMenuItem("Sweet corn soup", true);
+
+        //secondly remove the item from selected list
+        restaurant.selectOrDeselectMenuItem("Sweet corn soup", false);
+        assertEquals(false, restaurant.getSelectedMenuItemList().contains("Sweet corn soup"));
+    }
+
+    @Test
+    public void calculate_total_should_return_the_total_price_of_selected_items(){
+        //first select the menu items or add the menu item to selected List
+        restaurant.selectOrDeselectMenuItem("Sweet corn soup", true);
+        restaurant.selectOrDeselectMenuItem("Vegetable lasagne", true);
+        //check if total is 119 + 269 = 388
+        assertEquals(388, restaurant.calculateTotalPriceOfSelectedItems());
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<Calculate Menu Total (Part 3)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
